@@ -17,6 +17,7 @@
 		D42B179B1A0DF36E00A64B1A /* AQSWhatsAppActivityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B179A1A0DF36E00A64B1A /* AQSWhatsAppActivityTests.m */; };
 		D42B17A71A0DF51200A64B1A /* AQSWhatsAppActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B17A61A0DF51200A64B1A /* AQSWhatsAppActivity.m */; };
 		D42B17A91A0DF51800A64B1A /* AQSWhatsAppActivity.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42B17A81A0DF51800A64B1A /* AQSWhatsAppActivity.xcassets */; };
+		D42B17AB1A0DFB9800A64B1A /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D42B17AA1A0DFB9800A64B1A /* test.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D42B17A51A0DF51200A64B1A /* AQSWhatsAppActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSWhatsAppActivity.h; sourceTree = "<group>"; };
 		D42B17A61A0DF51200A64B1A /* AQSWhatsAppActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSWhatsAppActivity.m; sourceTree = "<group>"; };
 		D42B17A81A0DF51800A64B1A /* AQSWhatsAppActivity.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AQSWhatsAppActivity.xcassets; sourceTree = "<group>"; };
+		D42B17AA1A0DFB9800A64B1A /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		ECDB8F7E616A629E4EEC6FF5 /* libPods-AQSWhatsAppActivityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AQSWhatsAppActivityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4AC5D83B25F8FE510763A12 /* Pods-AQSWhatsAppActivityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AQSWhatsAppActivityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AQSWhatsAppActivityTests/Pods-AQSWhatsAppActivityTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +118,7 @@
 				D42B17851A0DF36E00A64B1A /* ViewController.h */,
 				D42B17861A0DF36E00A64B1A /* ViewController.m */,
 				D42B17881A0DF36E00A64B1A /* Main.storyboard */,
+				D42B17AA1A0DFB9800A64B1A /* test.jpg */,
 				D42B178B1A0DF36E00A64B1A /* Images.xcassets */,
 				D42B178D1A0DF36E00A64B1A /* LaunchScreen.xib */,
 				D42B177E1A0DF36E00A64B1A /* Supporting Files */,
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D42B178A1A0DF36E00A64B1A /* Main.storyboard in Resources */,
+				D42B17AB1A0DFB9800A64B1A /* test.jpg in Resources */,
 				D42B178F1A0DF36E00A64B1A /* LaunchScreen.xib in Resources */,
 				D42B17A91A0DF51800A64B1A /* AQSWhatsAppActivity.xcassets in Resources */,
 				D42B178C1A0DF36E00A64B1A /* Images.xcassets in Resources */,

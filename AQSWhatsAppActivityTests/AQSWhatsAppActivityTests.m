@@ -8,8 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import <OCMock.h>
+
+#import "AQSWhatsAppActivity.h"
+
+@interface AQSWhatsAppActivity (Test) <UIDocumentInteractionControllerDelegate>
+
+- (BOOL)isWhatsAppInstalled;
+- (NSURL *)nilOrFileURLWithImageDataTemporary:(NSData *)data;
+- (UIDocumentInteractionController *)documentInteractionControllerForInstagramWithFileURL:(NSURL *)URL;
+
+@end
 
 @interface AQSWhatsAppActivityTests : XCTestCase
+
+@property AQSWhatsAppActivity *activity;
 
 @end
 
@@ -17,7 +30,8 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    _activity = [[AQSWhatsAppActivity alloc] init];
 }
 
 - (void)tearDown {
@@ -25,16 +39,96 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+- (void)testItsActivityCategoryIsShare {
+    XCTAssertTrue(AQSWhatsAppActivity.activityCategory == UIActivityCategoryShare);
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testItReturnsItsImage {
+    XCTAssertNotNil(_activity.activityImage);
+}
+
+- (void)testItReturnsItsType {
+    XCTAssertTrue([_activity.activityType isEqualToString:@"org.openaquamarine.whatsapp"]);
+}
+
+- (void)testItReturnsItsTitle {
+    XCTAssertTrue([_activity.activityTitle isEqualToString:@"WhatsApp"]);
+}
+
+- (void)testItCanPerformActivityWithImage {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    OCMStub([activity isWhatsAppInstalled]).andReturn(YES);
+    
+    NSArray *activityItems = @[@"hoge", [UIImage imageNamed:@"test.jpg"]];
+    XCTAssertTrue([activity canPerformWithActivityItems:activityItems]);
+}
+
+- (void)testItCannotPerformActivityWithURLAndText {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    OCMStub([activity isWhatsAppInstalled]).andReturn(YES);
+    
+    NSArray *activityItems = @[@"hoge", [NSURL URLWithString:@"http://google.com/"]];
+    XCTAssertTrue([activity canPerformWithActivityItems:activityItems]);
+}
+
+- (void)testItCannotPerformActivityWithoutAppWithImage {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    OCMStub([activity isWhatsAppInstalled]).andReturn(NO);
+    
+    NSArray *activityItems = @[@"hoge", [UIImage imageNamed:@"test.jpg"]];
+    XCTAssertFalse([activity canPerformWithActivityItems:activityItems]);
+}
+
+- (void)testItCannotPerformActivityWithoutAppWithoutImage {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    OCMStub([activity isWhatsAppInstalled]).andReturn(NO);
+    
+    NSArray *activityItems = @[@"hoge", [NSURL URLWithString:@"http://google.com/"]];
+    XCTAssertFalse([activity canPerformWithActivityItems:activityItems]);
+}
+
+- (void)testItReturnsFileURLForWritingImageDataTemporary {
+    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"test.jpg"], 0.9);
+    XCTAssertNotNil([_activity nilOrFileURLWithImageDataTemporary:data]);
+}
+
+- (void)testItReturnsDocumentInteractionControllerForInstagramSharing {
+    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"test.jpg"], 0.9);
+    NSURL *URL = [_activity nilOrFileURLWithImageDataTemporary:data];
+    
+    UIDocumentInteractionController *controller = [_activity documentInteractionControllerForInstagramWithFileURL:URL];
+    
+    XCTAssertTrue([controller.UTI isEqualToString:@"net.whatsapp.image"]);
+    XCTAssertEqual(controller.URL, URL);
+}
+
+- (void)testItInvokeDidFinishWithYESWhenThePressedAppIsInstagram {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    [[activity expect] activityDidFinish:YES];
+    
+    [activity documentInteractionController:nil willBeginSendingToApplication:@"net.whatsapp.whatsapp"];
+    [activity documentInteractionControllerDidDismissOpenInMenu:nil];
+    
+    [activity verify];
+}
+
+- (void)testItInvokeDidFinishWithNOIfThePressedAppIsNotInstagram {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    [[activity expect] activityDidFinish:NO];
+    
+    [activity documentInteractionController:nil willBeginSendingToApplication:@"com.example.app"];
+    [activity documentInteractionControllerDidDismissOpenInMenu:nil];
+    
+    [activity verify];
+}
+
+- (void)testItInvokeDidFinishWithNOIfTheMenuDismissed {
+    id activity = [OCMockObject partialMockForObject:_activity];
+    [[activity expect] activityDidFinish:NO];
+    
+    [activity documentInteractionControllerDidDismissOpenInMenu:nil];
+    
+    [activity verify];
 }
 
 @end
