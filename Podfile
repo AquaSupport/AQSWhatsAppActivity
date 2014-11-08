@@ -1,5 +1,5 @@
 platform :ios, '7.0'
 
-target "AQSFacebookActivityTests" do
+target "AQSWhatsAppActivityTests" do
   pod "OCMock"
 end
