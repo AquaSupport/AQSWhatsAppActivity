@@ -9,7 +9,7 @@ Usage
 ---
 
 ```objc
-UIActivity *whatsAppActivity = [[AQSLINEActivity alloc] init];
+UIActivity *whatsAppActivity = [[AQSWhatsAppActivity alloc] init];
 NSArray *items = @[[UIImage imageNamed:@"someimage.png"]];
 
 UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:items withApplicationActivities:@[whatsAppActivity]];
